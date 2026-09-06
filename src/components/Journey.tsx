@@ -113,7 +113,7 @@ export function Journey() {
           </motion.div>
 
           <motion.div style={{ opacity: meetCard }} className="absolute w-full max-w-sm">
-            <div className="plate text-center">
+            <div className="on-photo text-center">
             <p className="eyebrow">{t("andSo")}</p>
             <p className="font-display mt-4 text-[clamp(1.8rem,7vw,2.8rem)] leading-tight font-light text-[color:var(--color-indigo)]">
               {t("twoFamilies")}
@@ -138,7 +138,7 @@ function Card({
   lines: string[];
 }) {
   return (
-    <div className="plate text-center">
+    <div className="on-photo text-center">
       <p className="eyebrow">{eyebrow}</p>
       <p className="font-display mt-3 text-[clamp(1.9rem,7vw,2.7rem)] leading-tight font-light text-[color:var(--color-indigo)]">
         {name}
