@@ -64,7 +64,7 @@ export function Overture() {
 
           <span className="hairline my-7 w-40" />
 
-          <p className="eyebrow text-[color:var(--color-gold)]">{t("togetherWithFamilies")}</p>
+          <p className="eyebrow">{t("togetherWithFamilies")}</p>
 
           <h1 className="font-display mt-4 flex max-w-[min(84vw,32rem)] flex-col items-center leading-[0.92] font-light text-[color:var(--color-indigo)]">
             <span className="text-[clamp(3rem,15vw,6rem)]">
@@ -79,7 +79,7 @@ export function Overture() {
           </h1>
 
           <span className="hairline mt-8 w-24" />
-          <p className="eyebrow mt-5 text-[0.64rem] text-[color:var(--color-ink-soft)]">
+          <p className="mt-5 text-[1.1rem] font-medium tracking-[0.12em] text-[color:var(--color-ink)]">
             {t("atPatna")}
           </p>
         </motion.div>
@@ -88,7 +88,7 @@ export function Overture() {
           style={{ opacity: textFade }}
           className="absolute inset-x-0 bottom-8 z-30 flex flex-col items-center gap-2"
         >
-          <span className="eyebrow text-[0.55rem] text-[color:var(--color-ink-soft)]">
+          <span className="text-[0.95rem] font-medium tracking-[0.14em] text-[color:var(--color-ink-soft)]">
             {t("scroll")}
           </span>
           <span className="h-9 w-px bg-gradient-to-b from-[color:var(--color-gold)] to-transparent" />

@@ -16,9 +16,12 @@
   --color-azure-deep: #2f6389;
   --color-indigo: #14304a;
   --color-ink: #17293c;
-  --color-ink-soft: #5b7690;
+  --color-ink-soft: #46607a;
+  /* Bright gold is for rules, borders and fills only. */
   --color-gold: #b08d4c;
   --color-gold-lite: #dcc188;
+  /* Gold dark enough to be read as text on white (about 5:1). */
+  --color-gold-ink: #85661f;
 
   --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-body: var(--font-jost), "Jost", system-ui, sans-serif;
@@ -64,6 +67,15 @@ body[data-sealed="true"] {
 .font-display {
   font-family: var(--font-display);
 }
+
+/*
+  Cormorant defaults to old-style figures, where 3, 4, 7 and 9 drop below the
+  baseline. Lovely in prose, wrong for a countdown or a calendar grid, where
+  digits have to line up and be read at a glance.
+*/
+.lining {
+  font-variant-numeric: lining-nums tabular-nums;
+}
 .font-arabic {
   font-family: var(--font-arabic);
   direction: rtl;
@@ -74,11 +86,32 @@ body[data-sealed="true"] {
   line-height: 2.6;
 }
 
+/*
+  Small tracked capitals are decoration, and decoration must still be readable
+  by guests in their seventies. 0.82rem with restrained tracking and a real
+  weight is the floor; nothing on this site sets type smaller.
+*/
 .eyebrow {
-  font-size: 0.68rem;
-  letter-spacing: 0.34em;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-gold-ink);
+}
+
+/* Anything the guest actually has to read — dates, addresses, notes, answers. */
+.readable {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--color-ink-soft);
+}
+
+/* Form labels and other plain-language prompts. Sentence case, never caps. */
+.field-label {
+  font-size: 1rem;
   font-weight: 500;
+  color: var(--color-ink);
 }
 
 /*

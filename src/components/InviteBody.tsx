@@ -5,7 +5,7 @@ import { Ornament, useAsset } from "@/components/Asset";
 import { CalendarMark } from "@/components/CalendarMark";
 import { Countdown } from "@/components/Countdown";
 import { useLang } from "@/components/LangProvider";
-import { Rsvp } from "@/components/Rsvp";
+import { MessageBox } from "@/components/MessageBox";
 import { assets } from "@/lib/assets";
 import { hosts, rasms, scripture, venue } from "@/lib/invite";
 
@@ -62,7 +62,7 @@ export function InviteBody() {
               </p>
               <span className="hairline my-6 block w-24" />
               {venue.lines.map((l) => (
-                <p key={l} className="text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                <p key={l} className="readable">
                   {l}
                 </p>
               ))}
@@ -77,8 +77,8 @@ export function InviteBody() {
 
           <Divider />
 
-          <Act id="rsvp" title={t("willYouJoin")} caption={t("rsvpCaption")}>
-            <Rsvp />
+          <Act id="message" title={t("leaveMessage")} caption={t("messageCaption")}>
+            <MessageBox />
           </Act>
 
           <Divider />
@@ -94,19 +94,19 @@ export function InviteBody() {
 
               <span className="hairline my-12 block w-48" />
 
-              <p className="eyebrow text-[0.58rem] text-[color:var(--color-gold)]">
+              <p className="eyebrow">
                 {t("invitedBy")}
               </p>
               <p className="font-display mt-3 text-3xl font-light text-[color:var(--color-indigo)]">
                 {hosts.invitedBy}
               </p>
               {hosts.address.map((l) => (
-                <p key={l} className="text-sm text-[color:var(--color-ink-soft)]">
+                <p key={l} className="readable">
                   {l}
                 </p>
               ))}
 
-              <p className="mt-7 text-sm text-[color:var(--color-ink-soft)]">
+              <p className="readable mt-7">
                 <span className="pe-2 opacity-70">{t("questions")}</span>
                 {hosts.phones.map((p, i) => (
                   <span key={p.tel}>
@@ -121,9 +121,9 @@ export function InviteBody() {
                 ))}
               </p>
 
-              <p className="font-display mt-14 max-w-sm text-sm leading-relaxed italic text-[color:var(--color-ink-soft)]">
+              <p className="font-display mt-14 max-w-sm text-[1.05rem] leading-relaxed italic text-[color:var(--color-ink-soft)]">
                 {scripture.ayah}
-                <span className="eyebrow mt-3 block text-[0.55rem] not-italic opacity-80">
+                <span className="eyebrow mt-3 block not-italic">
                   {scripture.ayahRef}
                 </span>
               </p>
@@ -154,7 +154,7 @@ function Act({
         </h2>
       )}
       {caption && (
-        <p className="mx-auto mt-4 max-w-sm text-center text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+        <p className="readable mx-auto mt-4 max-w-sm text-center">
           {caption}
         </p>
       )}
@@ -207,20 +207,25 @@ function Programme() {
                   isNikah ? "bg-[color:var(--color-gold)]" : "bg-[color:var(--color-sky-2)]"
                 }`}
               />
-              <span className="flex-1">
+              <span className="min-w-0 flex-1">
                 <span
                   className={`block leading-snug ${
                     lang === "ur" ? "font-urdu text-lg" : "font-display text-[1.45rem] font-light"
-                  } ${isNikah ? "text-[color:var(--color-gold)]" : "text-[color:var(--color-indigo)]"}`}
+                  } ${isNikah ? "text-[color:var(--color-gold-ink)]" : "text-[color:var(--color-indigo)]"}`}
                 >
                   {lang === "ur" ? r.urdu : r.title}
                 </span>
-                <span className="eyebrow mt-1.5 block text-[0.56rem] text-[color:var(--color-ink-soft)]">
+                <span className="mt-1.5 block text-[1rem] font-medium text-[color:var(--color-ink-soft)]">
                   {r.date} · {r.time}
                 </span>
+                {lang === "en" && (
+                  <span className="font-urdu mt-0.5 block text-base text-[color:var(--color-azure-deep)] sm:hidden">
+                    {r.urdu}
+                  </span>
+                )}
               </span>
               {lang === "en" && (
-                <span className="font-urdu shrink-0 text-sm text-[color:var(--color-azure-deep)]">
+                <span className="font-urdu hidden shrink text-base text-[color:var(--color-azure-deep)] sm:block">
                   {r.urdu}
                 </span>
               )}
@@ -230,7 +235,7 @@ function Programme() {
               style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
             >
               <div className="overflow-hidden">
-                <p className="pb-6 ps-6 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                <p className="readable pb-6 ps-6">
                   {r.note}
                   {r.atVenue && (
                     <span className="mt-2 block text-[color:var(--color-azure-deep)]">
@@ -261,13 +266,23 @@ function Action({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`eyebrow border px-7 py-3.5 text-[0.58rem] transition-colors ${
+      className={`inline-flex items-center gap-2.5 rounded-sm border px-7 py-4 text-[1.05rem] font-medium transition-colors ${
         primary
-          ? "border-[color:var(--color-gold)] bg-[color:var(--color-gold)] text-white hover:border-[color:var(--color-indigo)] hover:bg-[color:var(--color-indigo)]"
-          : "border-[color:var(--color-sky-2)] text-[color:var(--color-azure-deep)] hover:border-[color:var(--color-gold)] hover:text-[color:var(--color-gold)]"
+          ? "border-[color:var(--color-azure-deep)] bg-[color:var(--color-azure-deep)] text-white hover:bg-[color:var(--color-indigo)]"
+          : "border-[color:var(--color-azure-deep)] text-[color:var(--color-azure-deep)] hover:bg-[color:var(--color-mist)]"
       }`}
     >
       {children}
+      <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" aria-hidden="true">
+        <path
+          d="M7 17 17 7M9 7h8v8"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
     </a>
   );
 }

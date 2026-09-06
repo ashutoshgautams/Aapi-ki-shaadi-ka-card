@@ -144,13 +144,13 @@ export function DoorGate({ onOpen }: { onOpen: () => void }) {
               )}
 
               <span
-                className="font-urdu text-lg text-white"
+                className="font-urdu text-xl text-white"
                 style={{ textShadow: "0 2px 16px rgba(6,18,32,.95)" }}
               >
                 {couple.bride.urdu} · {couple.groom.urdu}
               </span>
               <span
-                className="eyebrow text-[#F3E4BC] transition-opacity group-hover:opacity-70"
+                className="text-[1.15rem] font-semibold tracking-[0.2em] text-[#FBF0D6] uppercase transition-opacity group-hover:opacity-75"
                 style={{ textShadow: "0 2px 16px rgba(6,18,32,.95)" }}
               >
                 {t("tapToOpen")}

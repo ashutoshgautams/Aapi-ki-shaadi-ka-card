@@ -111,7 +111,7 @@ export function Journey() {
           </motion.div>
 
           <motion.div style={{ opacity: meetCard }} className="absolute max-w-sm text-center">
-            <p className="eyebrow text-[color:var(--color-gold)]">{t("andSo")}</p>
+            <p className="eyebrow">{t("andSo")}</p>
             <p className="font-display mt-4 text-[clamp(1.8rem,7vw,2.8rem)] leading-tight font-light text-[color:var(--color-indigo)]">
               {t("twoFamilies")}
             </p>
@@ -135,14 +135,14 @@ function Card({
 }) {
   return (
     <>
-      <p className="eyebrow text-[color:var(--color-gold)]">{eyebrow}</p>
+      <p className="eyebrow">{eyebrow}</p>
       <p className="font-display mt-3 text-[clamp(1.9rem,7vw,2.7rem)] leading-tight font-light text-[color:var(--color-indigo)]">
         {name}
       </p>
-      {urdu && <p className="font-urdu mt-1 text-base text-[color:var(--color-azure-deep)]">{urdu}</p>}
+      {urdu && <p className="font-urdu mt-1 text-lg text-[color:var(--color-azure-deep)]">{urdu}</p>}
       <span className="hairline mx-auto my-5 block w-24" />
       {lines.filter(Boolean).map((l) => (
-        <p key={l} className="text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+        <p key={l} className="readable">
           {l}
         </p>
       ))}

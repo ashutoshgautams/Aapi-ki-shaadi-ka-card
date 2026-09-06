@@ -61,18 +61,26 @@ export function CalendarMark() {
 
   return (
     <div ref={ref} className="relative w-full max-w-sm" dir={rtl ? "rtl" : "ltr"}>
+      {/* The frame is stretched to the box rather than kept to its own aspect
+          ratio, and the calendar is inset well within it, so the ornament never
+          crowds or clips the dates however tall the grid ends up. */}
       {hasFrame && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={assets.frame}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -m-6 h-[calc(100%+3rem)] w-[calc(100%+3rem)] max-w-none"
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          style={{ objectFit: "fill" }}
         />
       )}
 
-      <div className="relative flex flex-col items-center px-2 py-4">
-        <p className="eyebrow text-[0.55rem] text-[color:var(--color-gold)]">
+      <div
+        className={`relative flex flex-col items-center ${
+          hasFrame ? "px-10 py-12 sm:px-12" : "px-2 py-4"
+        }`}
+      >
+        <p className="eyebrow">
           {rtl ? "بروز ہفتہ" : "Saturday"}
         </p>
         <p
@@ -83,18 +91,18 @@ export function CalendarMark() {
           {monthName}
         </p>
         {!rtl && (
-          <p className="font-display text-[1.15rem] tracking-[0.4em] text-[color:var(--color-gold)]">
+          <p className="font-display lining text-[1.3rem] tracking-[0.3em] text-[color:var(--color-gold-ink)]">
             {YEAR}
           </p>
         )}
 
         <span className="hairline my-6 block w-24" />
 
-        <div className="grid w-full grid-cols-7 gap-y-1.5">
+        <div className="grid w-full grid-cols-7 gap-y-2 px-1">
           {WEEKDAYS_EN.map((d, i) => (
             <span
               key={i}
-              className="eyebrow pb-3 text-center text-[0.52rem] text-[color:var(--color-gold)] opacity-80"
+              className="pb-3 text-center text-[0.92rem] font-semibold text-[color:var(--color-ink-soft)]"
             >
               {rtl ? WEEKDAYS_UR[i] : d}
             </span>
@@ -106,15 +114,15 @@ export function CalendarMark() {
             const isMark = day === MARKED;
 
             return (
-              <span key={i} className="relative grid aspect-square place-items-center">
+              <span key={i} className="relative grid aspect-square place-items-center overflow-visible">
                 {isMark && <Ring drawn={drawn} />}
                 <span
-                  className={`relative tabular-nums ${
+                  className={`lining relative ${
                     isMark
-                      ? "font-display text-[1.5rem] leading-none font-normal text-[color:var(--color-gold)]"
+                      ? "font-display text-[1.5rem] leading-none font-normal text-[color:var(--color-gold-ink)]"
                       : inSpan
-                        ? "text-sm font-medium text-[color:var(--color-azure-deep)]"
-                        : "text-sm font-light text-[color:var(--color-ink-soft)]"
+                        ? "text-[1.05rem] font-semibold text-[color:var(--color-azure-deep)]"
+                        : "text-[1.05rem] text-[color:var(--color-ink-soft)]"
                   }`}
                 >
                   {n(day)}
@@ -124,7 +132,7 @@ export function CalendarMark() {
           })}
         </div>
 
-        <p className="font-display mt-7 text-center text-sm italic text-[color:var(--color-ink-soft)]">
+        <p className="readable mt-7 text-center">
           {rtl ? "۲۲ تا ۲۵ اکتوبر تقریبات" : "Celebrations run 22–25 October"}
         </p>
       </div>

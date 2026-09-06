@@ -58,8 +58,8 @@ export function LangToggle() {
       <span
         className={
           lang === "en"
-            ? "font-urdu text-sm leading-none text-[color:var(--color-azure-deep)]"
-            : "eyebrow text-[0.6rem] text-[color:var(--color-azure-deep)]"
+            ? "font-urdu text-base leading-none text-[color:var(--color-azure-deep)]"
+            : "text-[0.95rem] font-semibold text-[color:var(--color-azure-deep)]"
         }
       >
         {lang === "en" ? "اردو" : "English"}

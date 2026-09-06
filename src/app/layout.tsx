@@ -49,12 +49,17 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="light">
-      <body
-        className={`${cormorant.variable} ${jost.variable} ${amiri.variable} ${nastaliq.variable}`}
-      >
-        {children}
-      </body>
+    // The font variables must sit on <html>, not <body>: globals.css declares
+    // --font-display: var(--font-cormorant) inside @theme, which resolves
+    // against :root. Defined any lower and that var() is empty, the whole font
+    // stack is invalid at computed value time, and every heading silently falls
+    // back to the default sans.
+    <html
+      lang="en"
+      data-theme="light"
+      className={`${cormorant.variable} ${jost.variable} ${amiri.variable} ${nastaliq.variable}`}
+    >
+      <body>{children}</body>
     </html>
   );
 }

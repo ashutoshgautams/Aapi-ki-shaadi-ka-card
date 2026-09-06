@@ -62,7 +62,7 @@ export function Countdown() {
   return (
     <div className="flex flex-col items-center" dir={rtl ? "rtl" : "ltr"}>
       <Ornament />
-      <p className="eyebrow mt-6 text-[0.58rem] text-[color:var(--color-gold)]">
+      <p className="eyebrow mt-6">
         {phase.kind === "during" && phase.next
           ? `${t("next")} — ${phase.next.title}`
           : t("untilNikah")}
@@ -82,12 +82,12 @@ export function Countdown() {
             }`}
           >
             <span
-              className="font-display text-[clamp(2.4rem,11vw,3.8rem)] leading-none font-light text-[color:var(--color-indigo)] tabular-nums"
+              className="font-display lining text-[clamp(2.4rem,11vw,3.8rem)] leading-none font-light text-[color:var(--color-indigo)]"
               suppressHydrationWarning
             >
               {now === null ? "—" : n(String(c.v).padStart(2, "0"))}
             </span>
-            <span className="eyebrow mt-3 text-[0.52rem] text-[color:var(--color-gold)] opacity-90">
+            <span className="mt-3 text-[0.95rem] font-medium tracking-wide text-[color:var(--color-ink-soft)]">
               {c.label}
             </span>
           </div>
@@ -95,7 +95,7 @@ export function Countdown() {
       </div>
 
       {phase.kind === "during" && (
-        <p className="mt-6 max-w-sm text-center text-sm text-[color:var(--color-ink-soft)]">
+        <p className="readable mt-6 max-w-sm text-center">
           {t("celebrationsBegun")}
         </p>
       )}
@@ -110,13 +110,13 @@ function MarriedState({ days }: { days: number }) {
   return (
     <div className="flex flex-col items-center text-center">
       <Ornament />
-      <p className="eyebrow mt-6 text-[color:var(--color-gold)]">{t("alhamdulillah")}</p>
+      <p className="eyebrow mt-6">{t("alhamdulillah")}</p>
       <p className="font-display mt-4 text-[clamp(2rem,8vw,3rem)] leading-tight font-light text-[color:var(--color-indigo)]">
         {t("marriedOn")}
         <br />
         {n("24")} October {n("2026")}
       </p>
-      <p className="mt-4 text-sm text-[color:var(--color-ink-soft)]">
+      <p className="readable mt-4">
         {years >= 1
           ? `${n(years)} ${t(years === 1 ? "year" : "years")} ${t("yearsTogether")}`
           : `${n(days)} ${t(days === 1 ? "day" : "daysWord")} ${t("yearsTogether")}`}
