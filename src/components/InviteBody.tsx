@@ -229,6 +229,22 @@ function Programme() {
                   {r.urdu}
                 </span>
               )}
+              <span
+                className="mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[color:var(--color-sky-2)] text-[color:var(--color-azure-deep)] transition-transform duration-300"
+                style={{ transform: isOpen ? "rotate(180deg)" : "none" }}
+                aria-hidden="true"
+              >
+                <svg viewBox="0 0 24 24" className="h-4 w-4">
+                  <path
+                    d="M6 9.5 L12 15.5 L18 9.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </button>
             <div
               className="grid transition-[grid-template-rows] duration-300"

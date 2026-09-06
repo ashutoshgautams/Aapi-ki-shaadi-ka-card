@@ -133,7 +133,7 @@ export function CalendarMark() {
         </div>
 
         <p className="readable mt-7 text-center">
-          {rtl ? "۲۲ تا ۲۵ اکتوبر تقریبات" : "Celebrations run 22–25 October"}
+          {rtl ? "۲۲ تا ۲۵ اکتوبر تقریبات" : "22–25 October"}
         </p>
       </div>
     </div>

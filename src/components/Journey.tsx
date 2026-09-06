@@ -59,7 +59,7 @@ export function Journey() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.66) 26%, rgba(255,255,255,.18) 52%, rgba(255,255,255,.5) 100%)",
+              "linear-gradient(180deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.22) 30%, rgba(255,255,255,.08) 55%, rgba(255,255,255,.45) 100%)",
           }}
         />
 
@@ -92,7 +92,7 @@ export function Journey() {
         )}
 
         <div className="pointer-events-none absolute inset-x-0 top-[13svh] flex justify-center px-6">
-          <motion.div style={{ opacity: brideCard }} className="absolute max-w-xs text-center">
+          <motion.div style={{ opacity: brideCard }} className="absolute w-full max-w-sm">
             <Card
               eyebrow={t("theBride")}
               name={lang === "ur" ? couple.bride.urdu : `${couple.bride.honorific} ${couple.bride.name}`}
@@ -101,7 +101,7 @@ export function Journey() {
             />
           </motion.div>
 
-          <motion.div style={{ opacity: groomCard }} className="absolute max-w-xs text-center">
+          <motion.div style={{ opacity: groomCard }} className="absolute w-full max-w-sm">
             <Card
               eyebrow={t("theGroom")}
               name={lang === "ur" ? couple.groom.urdu : `${couple.groom.honorific} ${couple.groom.name}`}
@@ -110,11 +110,13 @@ export function Journey() {
             />
           </motion.div>
 
-          <motion.div style={{ opacity: meetCard }} className="absolute max-w-sm text-center">
+          <motion.div style={{ opacity: meetCard }} className="absolute w-full max-w-sm">
+            <div className="plate text-center">
             <p className="eyebrow">{t("andSo")}</p>
             <p className="font-display mt-4 text-[clamp(1.8rem,7vw,2.8rem)] leading-tight font-light text-[color:var(--color-indigo)]">
               {t("twoFamilies")}
             </p>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -134,7 +136,7 @@ function Card({
   lines: string[];
 }) {
   return (
-    <>
+    <div className="plate text-center">
       <p className="eyebrow">{eyebrow}</p>
       <p className="font-display mt-3 text-[clamp(1.9rem,7vw,2.7rem)] leading-tight font-light text-[color:var(--color-indigo)]">
         {name}
@@ -146,6 +148,6 @@ function Card({
           {l}
         </p>
       ))}
-    </>
+    </div>
   );
 }

@@ -64,6 +64,10 @@ export const dict = {
   namePlaceholder: { en: "So they know who wrote it", ur: "تاکہ وہ جان سکیں" },
   sending: { en: "Sending…", ur: "بھیجا جا رہا ہے…" },
   sendMessage: { en: "Send message", ur: "پیغام بھیجیں" },
+  continueWord: { en: "Continue", ur: "آگے بڑھیں" },
+  back: { en: "Back", ur: "واپس" },
+  whoFrom: { en: "Who is it from?", ur: "یہ پیغام کس کی طرف سے ہے؟" },
+  sendAnonymously: { en: "Send without my name", ur: "نام کے بغیر بھیجیں" },
   needMessage: { en: "Please write a message first.", ur: "پہلے پیغام لکھیے۔" },
   recorded: { en: "Your message has been sent.", ur: "آپ کا پیغام بھیج دیا گیا" },
   recordedBody: {

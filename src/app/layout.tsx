@@ -32,13 +32,24 @@ const nastaliq = Noto_Nastaliq_Urdu({
 });
 
 export const metadata: Metadata = {
+  // Link previews need absolute URLs. Set NEXT_PUBLIC_SITE_URL in production or
+  // WhatsApp will show the card with no image.
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "Nemat & Bakhtiyar",
   description:
-    "The wedding of Dr. Nemat Aafreen and Er. Bakhtiyar Alam — Kishan Palace, Patna, 24 October 2026.",
+    "Mr. Gayasuddin Ahmad requests the honour of your presence at the marriage ceremony of his granddaughter, Dr. Nemat Aafreen, to Er. Bakhtiyar Alam. Kishan Palace, Patna — 24 October 2026.",
   openGraph: {
-    title: "Nemat & Bakhtiyar — 24 October 2026",
-    description: "You are invited to the nikah at Kishan Palace, Patna.",
     type: "website",
+    siteName: "Nemat & Bakhtiyar",
+    title: "Mr. Gayasuddin Ahmad requests the honour of your presence",
+    description:
+      "At the marriage ceremony of his granddaughter Dr. Nemat Aafreen to Er. Bakhtiyar Alam — Saturday, 24 October 2026, Kishan Palace, Patna.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mr. Gayasuddin Ahmad requests the honour of your presence",
+    description:
+      "The marriage of Dr. Nemat Aafreen and Er. Bakhtiyar Alam — 24 October 2026, Kishan Palace, Patna.",
   },
 };
 
