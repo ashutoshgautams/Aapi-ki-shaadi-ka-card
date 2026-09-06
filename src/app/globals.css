@@ -162,6 +162,25 @@ body[data-sealed="true"] {
   text-shadow: 0 1px 3px rgba(255, 255, 255, 0.75);
 }
 
+/*
+  Names over the photograph. The page sets its display type at weight 300,
+  which is right on white paper and wrong on marble — a high-contrast serif at
+  that weight has hairline strokes that disappear into the stone. Over an image
+  the same face needs real weight behind it.
+*/
+.on-photo-name {
+  font-weight: 600;
+  color: var(--color-indigo);
+  text-shadow:
+    0 1px 3px rgba(255, 255, 255, 0.9),
+    0 0 16px rgba(255, 255, 255, 0.55);
+}
+
+.on-photo-urdu {
+  font-weight: 600;
+  color: var(--color-indigo);
+}
+
 /* Supporting lines: indigo, not the page's soft grey, and a touch heavier. */
 .on-photo-line {
   font-size: 1.08rem;

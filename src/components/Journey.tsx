@@ -115,7 +115,7 @@ export function Journey() {
           <motion.div style={{ opacity: meetCard }} className="absolute w-full max-w-[22rem]">
             <div className="on-photo text-center">
             <p className="eyebrow">{t("andSo")}</p>
-            <p className="font-display mt-4 text-[clamp(1.8rem,7vw,2.8rem)] leading-tight font-light text-[color:var(--color-indigo)]">
+            <p className="font-display on-photo-name mt-4 text-[clamp(1.9rem,7.4vw,2.9rem)] leading-tight">
               {t("twoFamilies")}
             </p>
             </div>
@@ -140,10 +140,10 @@ function Card({
   return (
     <div className="on-photo text-center">
       <p className="eyebrow">{eyebrow}</p>
-      <p className="font-display mt-3 text-[clamp(1.9rem,7vw,2.7rem)] leading-tight font-light text-[color:var(--color-indigo)]">
+      <p className="font-display on-photo-name mt-3 text-[clamp(2rem,7.4vw,2.9rem)] leading-tight">
         {name}
       </p>
-      {urdu && <p className="font-urdu mt-1 text-lg text-[color:var(--color-azure-deep)]">{urdu}</p>}
+      {urdu && <p className="font-urdu on-photo-urdu mt-1 text-xl">{urdu}</p>}
       <span className="hairline mx-auto my-4 block w-20" />
       {lines.filter(Boolean).map((l) => (
         <p key={l} className="on-photo-line">
