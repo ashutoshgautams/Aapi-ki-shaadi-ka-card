@@ -15,7 +15,7 @@ export const couple = {
     urdu: "بختیار عالم",
     parents: ["Late Md. Mansoor Alam", "Mrs. Najbun Nisa"],
     line: "",
-    place: "Katar, Hasan Bazar, Bhojpur, Bihar",
+    place: "Bhojpur, Bihar",
   },
 } as const;
 
