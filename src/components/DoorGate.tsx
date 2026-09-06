@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import NextImage from "next/image";
 import { useEffect, useState } from "react";
 import { useAsset } from "@/components/Asset";
 import { useLang } from "@/components/LangProvider";
@@ -64,8 +65,14 @@ export function DoorGate({ onOpen }: { onOpen: () => void }) {
             >
               <div className="absolute top-0 h-full w-[200%]" style={{ [side]: 0 }}>
                 {hasDoors ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={assets.doors} alt="" className="h-full w-full object-cover" />
+                  <NextImage
+                    src={assets.doors}
+                    alt=""
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover"
+                  />
                 ) : (
                   <div
                     className="h-full w-full"
@@ -128,10 +135,13 @@ export function DoorGate({ onOpen }: { onOpen: () => void }) {
               />
 
               {hasSeal ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <NextImage
                   src={assets.seal}
                   alt=""
+                  width={352}
+                  height={352}
+                  priority
+                  sizes="(max-width: 640px) 144px, 176px"
                   className="h-36 w-36 drop-shadow-[0_20px_44px_rgba(6,18,32,.6)] sm:h-44 sm:w-44"
                 />
               ) : (

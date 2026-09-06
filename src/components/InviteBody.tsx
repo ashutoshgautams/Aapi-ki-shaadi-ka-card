@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import NextImage from "next/image";
 import { Ornament, useAsset } from "@/components/Asset";
 import { CalendarMark } from "@/components/CalendarMark";
 import { Countdown } from "@/components/Countdown";
@@ -29,10 +30,12 @@ export function InviteBody() {
     <div className="relative" dir={rtl ? "rtl" : "ltr"}>
       <div className="absolute inset-0 -z-10 overflow-hidden bg-[color:var(--color-sky-1)]">
         {hasPanel && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <NextImage
             src={assets.panel}
             alt=""
+            width={1600}
+            height={1000}
+            sizes="100vw"
             className="sticky top-0 h-svh w-full object-cover opacity-70"
           />
         )}

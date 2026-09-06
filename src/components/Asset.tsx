@@ -1,5 +1,6 @@
 "use client";
 
+import NextImage from "next/image";
 import { useEffect, useState } from "react";
 
 /**
@@ -35,6 +36,15 @@ export function Ornament({
 }) {
   const ready = useAsset(src);
   if (!ready) return null;
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt={alt} aria-hidden={alt === ""} className={className} />;
+  return (
+    <NextImage
+      src={src}
+      alt={alt}
+      width={1200}
+      height={200}
+      sizes="(max-width: 640px) 70vw, 420px"
+      aria-hidden={alt === ""}
+      className={className}
+    />
+  );
 }

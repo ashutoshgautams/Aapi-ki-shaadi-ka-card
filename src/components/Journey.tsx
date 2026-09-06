@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import NextImage from "next/image";
 import { useAsset } from "@/components/Asset";
 import { useLang } from "@/components/LangProvider";
 import { assets } from "@/lib/assets";
@@ -41,8 +42,13 @@ export function Journey() {
       <div className="sticky top-0 h-svh overflow-hidden bg-[color:var(--color-marble)]">
         <motion.div style={{ scale: corridorScale }} className="absolute inset-0">
           {hasCorridor ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={assets.corridor} alt="" loading="lazy" className="h-full w-full object-cover" />
+            <NextImage
+              src={assets.corridor}
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
           ) : (
             <div
               className="h-full w-full"
@@ -68,12 +74,12 @@ export function Journey() {
             style={{ x: brideX, scale: walkScale }}
             className="absolute bottom-[14%] left-0 h-[52svh] w-[30svh] origin-bottom"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <NextImage
               src={assets.bride}
               alt=""
-              loading="lazy"
-              className="h-full w-full object-contain object-bottom drop-shadow-[0_24px_36px_rgba(20,48,74,.22)]"
+              fill
+              sizes="(max-width: 640px) 55vw, 320px"
+              className="object-contain object-bottom drop-shadow-[0_24px_36px_rgba(20,48,74,.22)]"
             />
           </motion.div>
         )}
@@ -83,12 +89,12 @@ export function Journey() {
             style={{ x: groomX, scale: walkScale }}
             className="absolute bottom-[14%] left-0 h-[52svh] w-[30svh] origin-bottom"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <NextImage
               src={assets.groom}
               alt=""
-              loading="lazy"
-              className="h-full w-full object-contain object-bottom drop-shadow-[0_24px_36px_rgba(20,48,74,.22)]"
+              fill
+              sizes="(max-width: 640px) 55vw, 320px"
+              className="object-contain object-bottom drop-shadow-[0_24px_36px_rgba(20,48,74,.22)]"
             />
           </motion.div>
         )}

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import NextImage from "next/image";
 import { useAsset } from "@/components/Asset";
 import { useLang } from "@/components/LangProvider";
 import { assets } from "@/lib/assets";
@@ -32,12 +33,13 @@ export function Overture() {
       <div className="sticky top-0 h-svh overflow-hidden">
         <motion.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0">
           {hasHero ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <NextImage
               src={assets.hero}
               alt=""
-              fetchPriority="high"
-              className="h-full w-full object-cover"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
             />
           ) : (
             <div

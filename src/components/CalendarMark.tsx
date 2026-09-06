@@ -1,5 +1,6 @@
 "use client";
 
+import NextImage from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useAsset } from "@/components/Asset";
 import { useLang } from "@/components/LangProvider";
@@ -65,12 +66,13 @@ export function CalendarMark() {
           ratio, and the calendar is inset well within it, so the ornament never
           crowds or clips the dates however tall the grid ends up. */}
       {hasFrame && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <NextImage
           src={assets.frame}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 h-full w-full"
+          fill
+          sizes="(max-width: 640px) 90vw, 420px"
+          className="pointer-events-none"
           style={{ objectFit: "fill" }}
         />
       )}
