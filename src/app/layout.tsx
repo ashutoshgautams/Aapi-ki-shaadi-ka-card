@@ -32,9 +32,17 @@ const nastaliq = Noto_Nastaliq_Urdu({
 });
 
 export const metadata: Metadata = {
-  // Link previews need absolute URLs. Set NEXT_PUBLIC_SITE_URL in production or
-  // WhatsApp will show the card with no image.
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  // Link previews need an absolute image URL. Prefer an explicit site URL, then
+  // the deployment URL Vercel injects, so a preview deploy still previews
+  // correctly without anything being configured by hand.
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      (process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : "http://localhost:3000")
+  ),
   title: "Nemat & Bakhtiyar",
   description:
     "Mr. Gayasuddin Ahmad requests the honour of your presence at the marriage ceremony of his granddaughter, Dr. Nemat Aafreen, to Er. Bakhtiyar Alam. Kishan Palace, Patna — 24 October 2026.",
