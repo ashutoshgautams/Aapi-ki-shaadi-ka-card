@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { useLang } from "@/components/LangProvider";
 import { hosts, rasms } from "@/lib/invite";
-import { cuspedArch } from "@/lib/mughal";
 
 type State = "idle" | "sending" | "done" | "error";
 
@@ -11,6 +11,7 @@ const field =
   "w-full border-b border-[color:var(--color-sky-2)] bg-transparent px-1 py-2.5 text-[color:var(--color-ink)] outline-none transition-colors placeholder:text-[color:var(--color-ink-soft)]/60 focus:border-[color:var(--color-azure-deep)]";
 
 export function Rsvp() {
+  const { t, n, lang } = useLang();
   const [state, setState] = useState<State>("idle");
   const [error, setError] = useState("");
   const [attending, setAttending] = useState<"Yes" | "No" | "">("");
@@ -51,17 +52,16 @@ export function Rsvp() {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col items-center gap-4 py-10 text-center"
       >
-        <svg viewBox="0 0 120 90" className="h-20 w-24 text-[color:var(--color-gold)]" aria-hidden="true">
-          <path d={cuspedArch(72, 62, 5)} transform="translate(60 84)" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.75" />
-          <path d="M46 52 L56 62 L76 40" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        <p className="font-display text-3xl font-medium text-[color:var(--color-indigo)]">
-          Thank you — it&rsquo;s recorded.
+        <span className="grid h-16 w-16 place-items-center rounded-full border border-[color:var(--color-gold)]/60">
+          <svg viewBox="0 0 24 24" className="h-6 w-6 text-[color:var(--color-gold)]" aria-hidden="true">
+            <path d="M5 12.5 L10 17.5 L19 7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+        <p className="font-display text-[2.2rem] font-light text-[color:var(--color-indigo)]">
+          {t("recorded")}
         </p>
         <p className="max-w-sm text-sm text-[color:var(--color-ink-soft)]">
-          {attending === "No"
-            ? "You will be missed. Your message has been passed to the family."
-            : "The family will be waiting for you at Kishan Palace."}
+          {attending === "No" ? t("willBeMissed") : t("waitingForYou")}
         </p>
       </motion.div>
     );
@@ -71,18 +71,18 @@ export function Rsvp() {
     <form onSubmit={submit} className="flex flex-col gap-7">
       <div className="grid gap-7 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5">
-          <span className="eyebrow text-[0.6rem] text-[color:var(--color-azure-deep)]">Your name</span>
-          <input name="name" required minLength={2} className={field} placeholder="Who is writing?" />
+          <span className="eyebrow text-[0.6rem] text-[color:var(--color-azure-deep)]">{t("yourName")}</span>
+          <input name="name" required minLength={2} className={field} placeholder={t("namePlaceholder")} />
         </label>
         <label className="flex flex-col gap-1.5">
-          <span className="eyebrow text-[0.6rem] text-[color:var(--color-azure-deep)]">Phone (optional)</span>
-          <input name="phone" inputMode="tel" className={field} placeholder="So we can reach you" />
+          <span className="eyebrow text-[0.6rem] text-[color:var(--color-azure-deep)]">{t("phone")}</span>
+          <input name="phone" inputMode="tel" className={field} placeholder={t("phonePlaceholder")} />
         </label>
       </div>
 
       <fieldset className="flex flex-col gap-3">
         <legend className="eyebrow mb-1 text-[0.6rem] text-[color:var(--color-azure-deep)]">
-          Will you be there?
+          {t("willYouBeThere")}
         </legend>
         <div className="flex gap-3">
           {(["Yes", "No"] as const).map((v) => (
@@ -97,7 +97,7 @@ export function Rsvp() {
                   : "border-[color:var(--color-sky-2)] text-[color:var(--color-ink-soft)] hover:border-[color:var(--color-azure)]"
               }`}
             >
-              {v === "Yes" ? "Yes, with joy" : "Sadly, no"}
+              {v === "Yes" ? t("yesWithJoy") : t("sadlyNo")}
             </button>
           ))}
         </div>
@@ -107,7 +107,7 @@ export function Rsvp() {
         <>
           <label className="flex flex-col gap-1.5">
             <span className="eyebrow text-[0.6rem] text-[color:var(--color-azure-deep)]">
-              How many of you?
+              {t("howMany")}
             </span>
             <input
               name="guests"
@@ -121,7 +121,7 @@ export function Rsvp() {
 
           <fieldset className="flex flex-col gap-3">
             <legend className="eyebrow mb-1 text-[0.6rem] text-[color:var(--color-azure-deep)]">
-              Which rasms will you join?
+              {t("whichRasms")}
             </legend>
             <div className="flex flex-wrap gap-2">
               {rasms.map((r) => {
@@ -140,7 +140,7 @@ export function Rsvp() {
                         : "border-[color:var(--color-sky-2)] text-[color:var(--color-ink-soft)] hover:border-[color:var(--color-azure)]"
                     }`}
                   >
-                    {r.title}
+                    {lang === "ur" ? r.urdu : r.title}
                   </button>
                 );
               })}
@@ -151,14 +151,14 @@ export function Rsvp() {
 
       <label className="flex flex-col gap-1.5">
         <span className="eyebrow text-[0.6rem] text-[color:var(--color-azure-deep)]">
-          A message for Nemat &amp; Bakhtiyar
+          {t("messageFor")}
         </span>
         <textarea
           name="message"
           rows={4}
           maxLength={2000}
           className={`${field} resize-y leading-relaxed`}
-          placeholder="A dua, a memory, a line of advice…"
+          placeholder={t("messagePlaceholder")}
         />
       </label>
 
@@ -175,11 +175,11 @@ export function Rsvp() {
           className="cursor-pointer border border-[color:var(--color-azure-deep)] bg-[color:var(--color-azure-deep)] px-8 py-3.5 text-white transition-colors hover:bg-[color:var(--color-indigo)] disabled:opacity-60"
         >
           <span className="eyebrow text-[0.62rem]">
-            {state === "sending" ? "Sending…" : "Send to the family"}
+            {state === "sending" ? t("sending") : t("sendToFamily")}
           </span>
         </button>
         <p className="text-xs text-[color:var(--color-ink-soft)]">
-          Kindly reply by {hosts.rsvpBy}
+          {t("replyBy")} {n(hosts.rsvpBy)}
         </p>
       </div>
     </form>

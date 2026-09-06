@@ -2,105 +2,96 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { ArchFrame, MahalSkyline } from "@/components/art/Mahal";
-import { Motes } from "@/components/art/Motes";
+import { useAsset } from "@/components/Asset";
+import { useLang } from "@/components/LangProvider";
+import { assets } from "@/lib/assets";
 import { couple, scripture } from "@/lib/invite";
 
 /**
- * Act I. The camera looks through an iwan onto the palace. Scrolling dollies
- * the arch forward and drifts the skyline behind it, so the page moves like a
- * shot rather than a scroll.
+ * Act I — what lies beyond the doors. The photograph drifts and scales behind
+ * the names as you scroll, so the page opens like a camera move into the
+ * courtyard rather than a static hero.
  */
 export function Overture() {
+  const { t, lang } = useLang();
   const track = useRef<HTMLDivElement>(null);
+  const hasHero = useAsset(assets.hero);
+
   const { scrollYProgress } = useScroll({
     target: track,
     offset: ["start start", "end start"],
   });
 
-  const farY = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const midY = useTransform(scrollYProgress, [0, 1], [0, -110]);
-  const frameScale = useTransform(scrollYProgress, [0, 1], [1, 1.4]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -70]);
-  const textFade = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.06, 1.18]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const textFade = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <section ref={track} className="relative h-[200svh]">
       <div className="sticky top-0 h-svh overflow-hidden">
-        {/* sky */}
+        <motion.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0">
+          {hasHero ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={assets.hero} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <div
+              className="h-full w-full"
+              style={{
+                background:
+                  "linear-gradient(180deg, #FFFFFF 0%, #F1F7FC 30%, #DCEAF5 62%, #C4DCEF 100%)",
+              }}
+            />
+          )}
+        </motion.div>
+
+        {/* the words need a clean field to sit in, whatever the photograph does */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, #ffffff 0%, #eaf3fa 34%, #dbeaf6 62%, #c9e0f1 100%)",
+              "radial-gradient(ellipse 92% 62% at 50% 52%, rgba(255,255,255,.94), rgba(255,255,255,.72) 42%, rgba(255,255,255,.34) 68%, rgba(255,255,255,.12) 100%)",
           }}
         />
 
-        {/* sun haze behind the centre of the arch */}
-        <div
-          className="absolute left-1/2 top-[52%] h-[70vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,246,222,.95) 0%, rgba(220,193,136,.35) 40%, rgba(220,193,136,0) 70%)",
-          }}
-        />
-
-        <motion.div style={{ y: farY }} className="absolute inset-x-0 bottom-0 h-[62%]">
-          <MahalSkyline depth="far" className="h-full w-full" />
-        </motion.div>
-
-        <motion.div style={{ y: midY }} className="absolute inset-x-0 bottom-0 h-[48%]">
-          <MahalSkyline depth="mid" className="h-full w-full" />
-        </motion.div>
-
-        <Motes className="absolute inset-0 h-full w-full" count={22} />
-
-        {/* the words, framed by the opening */}
         <motion.div
           style={{ y: textY, opacity: textFade }}
-          className="absolute inset-0 z-20 flex translate-y-[10%] flex-col items-center justify-center px-8 text-center"
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-8 text-center"
         >
           <p className="font-arabic text-[clamp(1.15rem,4.6vw,1.7rem)] leading-loose text-[color:var(--color-indigo)]">
             {scripture.bismillah}
           </p>
 
-          <div className="hairline my-6 w-40" />
+          <span className="hairline my-7 w-40" />
 
-          <p className="eyebrow text-[color:var(--color-azure-deep)]">
-            Together with their families
-          </p>
+          <p className="eyebrow text-[color:var(--color-gold)]">{t("togetherWithFamilies")}</p>
 
-          <h1 className="font-display mt-3 flex max-w-[min(72vw,26rem)] flex-col items-center leading-[0.95] font-medium text-[color:var(--color-indigo)]">
-            <span className="text-[clamp(2.6rem,12vw,4.6rem)]">
-              {couple.bride.name.split(" ")[0]}
+          <h1 className="font-display mt-4 flex max-w-[min(84vw,32rem)] flex-col items-center leading-[0.92] font-light text-[color:var(--color-indigo)]">
+            <span className="text-[clamp(3rem,15vw,6rem)]">
+              {lang === "ur" ? couple.bride.urdu : couple.bride.name.split(" ")[0]}
             </span>
-            <span className="font-arabic my-1 text-[clamp(0.85rem,3.4vw,1.1rem)] text-[color:var(--color-gold)]">
-              و
+            <span className="font-display my-2 text-[clamp(1.4rem,5vw,2rem)] italic text-[color:var(--color-gold)]">
+              &amp;
             </span>
-            <span className="text-[clamp(2.6rem,12vw,4.6rem)]">
-              {couple.groom.name.split(" ")[0]}
+            <span className="text-[clamp(3rem,15vw,6rem)]">
+              {lang === "ur" ? couple.groom.urdu : couple.groom.name.split(" ")[0]}
             </span>
           </h1>
 
-          <p className="eyebrow mt-6 text-[0.62rem] text-[color:var(--color-ink-soft)]">
-            24 October 2026 &nbsp;·&nbsp; Patna
+          <span className="hairline mt-8 w-24" />
+          <p className="eyebrow mt-5 text-[0.64rem] text-[color:var(--color-ink-soft)]">
+            {t("atPatna")}
           </p>
-        </motion.div>
-
-        {/* foreground iwan — drawn last so the text reads as being inside it */}
-        <motion.div
-          style={{ scale: frameScale }}
-          className="pointer-events-none absolute inset-0 z-30 origin-center"
-        >
-          <ArchFrame className="h-full w-full" />
         </motion.div>
 
         <motion.div
           style={{ opacity: textFade }}
-          className="absolute inset-x-0 bottom-7 z-40 flex flex-col items-center gap-2"
+          className="absolute inset-x-0 bottom-8 z-30 flex flex-col items-center gap-2"
         >
-          <span className="eyebrow text-[0.55rem] text-[color:var(--color-ink-soft)]">Scroll</span>
-          <span className="h-8 w-px bg-gradient-to-b from-[color:var(--color-gold)] to-transparent" />
+          <span className="eyebrow text-[0.55rem] text-[color:var(--color-ink-soft)]">
+            {t("scroll")}
+          </span>
+          <span className="h-9 w-px bg-gradient-to-b from-[color:var(--color-gold)] to-transparent" />
         </motion.div>
       </div>
     </section>

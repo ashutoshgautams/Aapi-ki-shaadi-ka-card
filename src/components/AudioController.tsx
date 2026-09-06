@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLang } from "@/components/LangProvider";
 
 const TRACK = "/audio/ambience.mp3";
 
@@ -11,6 +12,7 @@ const TRACK = "/audio/ambience.mp3";
  * there broken.
  */
 export function AudioController({ autostart }: { autostart: boolean }) {
+  const { t } = useLang();
   const el = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);
@@ -63,7 +65,7 @@ export function AudioController({ autostart }: { autostart: boolean }) {
       >
         <Equalizer on={playing} />
         <span className="eyebrow text-[0.58rem] text-[color:var(--color-ink-soft)]">
-          {playing ? "Music on" : "Music off"}
+          {playing ? t("musicOn") : t("musicOff")}
         </span>
       </button>
     </>

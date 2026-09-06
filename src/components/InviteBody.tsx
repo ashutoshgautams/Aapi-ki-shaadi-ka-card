@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Ornament, useAsset } from "@/components/Asset";
+import { CalendarMark } from "@/components/CalendarMark";
 import { Countdown } from "@/components/Countdown";
+import { useLang } from "@/components/LangProvider";
 import { Rsvp } from "@/components/Rsvp";
-import { JaaliBand } from "@/components/art/Mahal";
+import { assets } from "@/lib/assets";
 import { hosts, rasms, scripture, venue } from "@/lib/invite";
 
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.mapsQuery)}`;
@@ -14,111 +17,144 @@ const calendarHref =
   "&location=" + encodeURIComponent("Kishan Palace, Bailey Road, Patna") +
   "&details=" + encodeURIComponent("Nikah & walima dinner.");
 
+/**
+ * The invitation itself, set as one long card on a marble ground and framed
+ * with the same gold double rule as the printed card.
+ */
 export function InviteBody() {
+  const { t, rtl } = useLang();
+  const hasPanel = useAsset(assets.panel);
+
   return (
-    <div className="relative bg-[color:var(--color-marble)]">
-      <Act>
-        <Countdown />
-      </Act>
+    <div className="relative" dir={rtl ? "rtl" : "ltr"}>
+      <div className="absolute inset-0 -z-10 overflow-hidden bg-[color:var(--color-sky-1)]">
+        {hasPanel && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={assets.panel}
+            alt=""
+            className="sticky top-0 h-svh w-full object-cover opacity-70"
+          />
+        )}
+      </div>
 
-      <Divider />
+      <div className="mx-auto w-full max-w-2xl px-3 py-10 sm:px-6 sm:py-20">
+        <div className="invitation-card px-6 py-14 sm:px-14 sm:py-20">
+          <Act id="date" title={t("saveTheDate")}>
+            <div className="flex flex-col items-center gap-16">
+              <CalendarMark />
+              <Countdown />
+            </div>
+          </Act>
 
-      <Act title="The celebrations" caption="Five gatherings across four days.">
-        <Programme />
-      </Act>
+          <Divider />
 
-      <Divider />
+          <Act id="programme" title={t("celebrations")} caption={t("fiveGatherings")}>
+            <Programme />
+          </Act>
 
-      <Act title="Where to find us">
-        <div className="flex flex-col items-center text-center">
-          <p className="font-display text-[clamp(1.9rem,7vw,2.6rem)] font-medium text-[color:var(--color-indigo)]">
-            {venue.name}
-          </p>
-          {venue.lines.map((l) => (
-            <p key={l} className="text-sm text-[color:var(--color-ink-soft)]">
-              {l}
-            </p>
-          ))}
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Action href={mapsHref} primary>
-              Open in Maps
-            </Action>
-            <Action href={calendarHref}>Add the Nikah to calendar</Action>
-          </div>
+          <Divider />
+
+          <Act id="venue" title={t("whereToFindUs")}>
+            <div className="flex flex-col items-center text-center">
+              <p className="font-display text-[clamp(2.2rem,9vw,3.2rem)] leading-tight font-light text-[color:var(--color-indigo)]">
+                {venue.name}
+              </p>
+              <span className="hairline my-6 block w-24" />
+              {venue.lines.map((l) => (
+                <p key={l} className="text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                  {l}
+                </p>
+              ))}
+              <div className="mt-9 flex flex-wrap justify-center gap-3">
+                <Action href={mapsHref} primary>
+                  {t("openInMaps")}
+                </Action>
+                <Action href={calendarHref}>{t("addToCalendar")}</Action>
+              </div>
+            </div>
+          </Act>
+
+          <Divider />
+
+          <Act id="rsvp" title={t("willYouJoin")} caption={t("rsvpCaption")}>
+            <Rsvp />
+          </Act>
+
+          <Divider />
+
+          <Act>
+            <div className="flex flex-col items-center text-center">
+              <p className="font-arabic text-[clamp(1.25rem,5vw,1.7rem)] leading-[2.2] text-[color:var(--color-indigo)]">
+                {scripture.dua}
+              </p>
+              <p className="font-display mt-6 max-w-md text-base leading-relaxed italic text-[color:var(--color-ink-soft)]">
+                &ldquo;{scripture.duaTranslation}&rdquo;
+              </p>
+
+              <span className="hairline my-12 block w-48" />
+
+              <p className="eyebrow text-[0.58rem] text-[color:var(--color-gold)]">
+                {t("invitedBy")}
+              </p>
+              <p className="font-display mt-3 text-3xl font-light text-[color:var(--color-indigo)]">
+                {hosts.invitedBy}
+              </p>
+              {hosts.address.map((l) => (
+                <p key={l} className="text-sm text-[color:var(--color-ink-soft)]">
+                  {l}
+                </p>
+              ))}
+
+              <p className="mt-7 text-sm text-[color:var(--color-ink-soft)]">
+                <span className="pe-2 opacity-70">{t("questions")}</span>
+                {hosts.phones.map((p, i) => (
+                  <span key={p.tel}>
+                    {i > 0 && <span className="px-2 opacity-40">·</span>}
+                    <a
+                      href={`tel:${p.tel}`}
+                      className="text-[color:var(--color-azure-deep)] hover:underline"
+                    >
+                      {p.label}
+                    </a>
+                  </span>
+                ))}
+              </p>
+
+              <p className="font-display mt-14 max-w-sm text-sm leading-relaxed italic text-[color:var(--color-ink-soft)]">
+                {scripture.ayah}
+                <span className="eyebrow mt-3 block text-[0.55rem] not-italic opacity-80">
+                  {scripture.ayahRef}
+                </span>
+              </p>
+            </div>
+          </Act>
         </div>
-      </Act>
-
-      <Divider />
-
-      <Act
-        title="Will you join us?"
-        caption="Fill this in here — it goes straight to the family's list. Nothing else to open."
-      >
-        <Rsvp />
-      </Act>
-
-      <Divider />
-
-      <Act>
-        <div className="flex flex-col items-center text-center">
-          <p className="font-arabic text-[clamp(1.15rem,4.4vw,1.55rem)] leading-loose text-[color:var(--color-indigo)]">
-            {scripture.dua}
-          </p>
-          <p className="mt-5 max-w-md text-sm italic text-[color:var(--color-ink-soft)]">
-            &ldquo;{scripture.duaTranslation}&rdquo;
-          </p>
-
-          <div className="hairline my-10 w-48" />
-
-          <p className="eyebrow text-[0.58rem] text-[color:var(--color-ink-soft)]">Invited by</p>
-          <p className="font-display mt-2 text-2xl font-medium text-[color:var(--color-indigo)]">
-            {hosts.invitedBy}
-          </p>
-          {hosts.address.map((l) => (
-            <p key={l} className="text-sm text-[color:var(--color-ink-soft)]">
-              {l}
-            </p>
-          ))}
-
-          <p className="mt-6 text-sm text-[color:var(--color-ink-soft)]">
-            {hosts.phones.map((p, i) => (
-              <span key={p.tel}>
-                {i > 0 && <span className="px-2 opacity-40">·</span>}
-                <a href={`tel:${p.tel}`} className="text-[color:var(--color-azure-deep)] hover:underline">
-                  {p.label}
-                </a>
-              </span>
-            ))}
-          </p>
-
-          <p className="mt-12 max-w-sm text-xs leading-relaxed text-[color:var(--color-ink-soft)]">
-            {scripture.ayah}
-            <span className="mt-1 block opacity-70">— {scripture.ayahRef}</span>
-          </p>
-        </div>
-      </Act>
+      </div>
     </div>
   );
 }
 
 function Act({
+  id,
   title,
   caption,
   children,
 }: {
+  id?: string;
   title?: string;
   caption?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="mx-auto w-full max-w-2xl px-6 py-20 sm:py-28">
+    <section id={id} className="scroll-mt-8 py-6">
       {title && (
-        <h2 className="font-display text-center text-[clamp(1.9rem,7vw,2.6rem)] leading-tight font-medium text-balance text-[color:var(--color-indigo)]">
+        <h2 className="font-display text-center text-[clamp(2.1rem,8.5vw,3rem)] leading-tight font-light text-balance text-[color:var(--color-indigo)]">
           {title}
         </h2>
       )}
       {caption && (
-        <p className="mx-auto mt-3 max-w-sm text-center text-sm text-[color:var(--color-ink-soft)]">
+        <p className="mx-auto mt-4 max-w-sm text-center text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
           {caption}
         </p>
       )}
@@ -127,23 +163,33 @@ function Act({
   );
 }
 
+/** A gold ornament between sections — the supplied one, or a ruled pip. */
 function Divider() {
+  const hasDivider = useAsset(assets.divider);
   return (
-    <div className="mx-auto flex w-full max-w-2xl items-center gap-5 px-6" aria-hidden="true">
-      <span className="hairline flex-1" />
-      <JaaliBand className="h-6 w-24 opacity-70" />
-      <span className="hairline flex-1" />
+    <div className="flex items-center justify-center gap-4 py-14" aria-hidden="true">
+      {hasDivider ? (
+        <Ornament src={assets.divider} className="h-8 w-auto max-w-[70%] opacity-90" />
+      ) : (
+        <>
+          <span className="hairline w-20 sm:w-28" />
+          <span className="pip" />
+          <span className="hairline w-20 sm:w-28" />
+        </>
+      )}
     </div>
   );
 }
 
 function Programme() {
+  const { t, lang } = useLang();
   const [open, setOpen] = useState<string | null>("nikah");
 
   return (
     <ul className="flex flex-col">
       {rasms.map((r, i) => {
         const isOpen = open === r.key;
+        const isNikah = r.key === "nikah";
         return (
           <li
             key={r.key}
@@ -154,37 +200,41 @@ function Programme() {
             <button
               onClick={() => setOpen(isOpen ? null : r.key)}
               aria-expanded={isOpen}
-              className="flex w-full cursor-pointer items-baseline gap-4 py-5 text-left"
+              className="flex w-full cursor-pointer items-baseline gap-4 py-6 text-start"
             >
               <span
-                className={`mt-1 h-2 w-2 shrink-0 rotate-45 transition-colors ${
-                  r.key === "nikah"
-                    ? "bg-[color:var(--color-gold)]"
-                    : "bg-[color:var(--color-sky-2)]"
+                className={`mt-2 h-1.5 w-1.5 shrink-0 rotate-45 ${
+                  isNikah ? "bg-[color:var(--color-gold)]" : "bg-[color:var(--color-sky-2)]"
                 }`}
               />
               <span className="flex-1">
-                <span className="font-display block text-xl leading-snug font-medium text-[color:var(--color-indigo)]">
-                  {r.title}
+                <span
+                  className={`block leading-snug ${
+                    lang === "ur" ? "font-urdu text-lg" : "font-display text-[1.45rem] font-light"
+                  } ${isNikah ? "text-[color:var(--color-gold)]" : "text-[color:var(--color-indigo)]"}`}
+                >
+                  {lang === "ur" ? r.urdu : r.title}
                 </span>
-                <span className="mt-0.5 block text-xs tracking-wide text-[color:var(--color-ink-soft)]">
+                <span className="eyebrow mt-1.5 block text-[0.56rem] text-[color:var(--color-ink-soft)]">
                   {r.date} · {r.time}
                 </span>
               </span>
-              <span className="font-urdu shrink-0 text-sm text-[color:var(--color-azure-deep)]">
-                {r.urdu}
-              </span>
+              {lang === "en" && (
+                <span className="font-urdu shrink-0 text-sm text-[color:var(--color-azure-deep)]">
+                  {r.urdu}
+                </span>
+              )}
             </button>
             <div
               className="grid transition-[grid-template-rows] duration-300"
               style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
             >
               <div className="overflow-hidden">
-                <p className="pb-5 pl-6 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
+                <p className="pb-6 ps-6 text-sm leading-relaxed text-[color:var(--color-ink-soft)]">
                   {r.note}
                   {r.atVenue && (
-                    <span className="mt-1 block text-[color:var(--color-azure-deep)]">
-                      At {venue.name}, Bailey Road, Patna.
+                    <span className="mt-2 block text-[color:var(--color-azure-deep)]">
+                      {t("atVenueLine")}
                     </span>
                   )}
                 </p>
@@ -211,10 +261,10 @@ function Action({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`eyebrow border px-6 py-3 text-[0.6rem] transition-colors ${
+      className={`eyebrow border px-7 py-3.5 text-[0.58rem] transition-colors ${
         primary
-          ? "border-[color:var(--color-azure-deep)] bg-[color:var(--color-azure-deep)] text-white hover:bg-[color:var(--color-indigo)]"
-          : "border-[color:var(--color-sky-2)] text-[color:var(--color-azure-deep)] hover:border-[color:var(--color-azure-deep)]"
+          ? "border-[color:var(--color-gold)] bg-[color:var(--color-gold)] text-white hover:border-[color:var(--color-indigo)] hover:bg-[color:var(--color-indigo)]"
+          : "border-[color:var(--color-sky-2)] text-[color:var(--color-azure-deep)] hover:border-[color:var(--color-gold)] hover:text-[color:var(--color-gold)]"
       }`}
     >
       {children}

@@ -81,6 +81,42 @@ body[data-sealed="true"] {
   font-weight: 500;
 }
 
+/*
+  The printed card is framed by a gold double rule. The page carries the same
+  device, drawn with two inset borders rather than an image, so it stays crisp
+  at any height as the card grows with its content.
+*/
+.invitation-card {
+  position: relative;
+  background: var(--color-paper);
+  box-shadow:
+    0 2px 6px rgba(20, 48, 74, 0.06),
+    0 48px 100px -44px rgba(20, 48, 74, 0.42);
+}
+.invitation-card::before,
+.invitation-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.invitation-card::before {
+  inset: clamp(10px, 2.4vw, 20px);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 60%, transparent);
+}
+.invitation-card::after {
+  inset: clamp(15px, 3.2vw, 27px);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 24%, transparent);
+}
+
+/* A small gold lozenge that punctuates the space between sections. */
+.pip {
+  width: 7px;
+  height: 7px;
+  rotate: 45deg;
+  background: var(--color-gold);
+  opacity: 0.75;
+}
+
 /* Fine gold hairline used to separate acts. */
 .hairline {
   background: linear-gradient(

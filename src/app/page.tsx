@@ -2,33 +2,44 @@
 
 import { useEffect, useState } from "react";
 import { AudioController } from "@/components/AudioController";
-import { CurtainGate } from "@/components/CurtainGate";
+import { DoorGate } from "@/components/DoorGate";
 import { InviteBody } from "@/components/InviteBody";
 import { Journey } from "@/components/Journey";
+import { LangProvider, LangToggle, useLang } from "@/components/LangProvider";
 import { Overture } from "@/components/Overture";
 import { useSmoothScroll } from "@/components/useSmoothScroll";
 
 export default function Page() {
+  return (
+    <LangProvider>
+      <Invitation />
+    </LangProvider>
+  );
+}
+
+function Invitation() {
   const [opened, setOpened] = useState(false);
-  const [showCurtain, setShowCurtain] = useState(true);
+  const [showDoors, setShowDoors] = useState(true);
+  const { rtl } = useLang();
 
   useSmoothScroll(opened);
 
   // ?skipIntro=1 lands straight on the invitation — for anyone re-opening the
-  // link who does not want to sit through the curtain again. Resolved after
+  // link who does not want to sit through the doors again. Resolved after
   // mount so the server and client render the same first frame.
   useEffect(() => {
     if (new URLSearchParams(window.location.search).has("skipIntro")) {
-      setShowCurtain(false);
+      setShowDoors(false);
       setOpened(true);
     }
   }, []);
 
   return (
     <>
-      {showCurtain && <CurtainGate onOpen={() => setOpened(true)} />}
+      {showDoors && <DoorGate onOpen={() => setOpened(true)} />}
       <AudioController autostart={opened} />
-      <main className="grain relative">
+      <LangToggle />
+      <main className="grain relative" dir={rtl ? "rtl" : "ltr"}>
         <Overture />
         <Journey />
         <InviteBody />
