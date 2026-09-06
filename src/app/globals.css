@@ -142,51 +142,46 @@ body[data-sealed="true"] {
 }
 
 /*
-  Type set directly on a photograph, with nothing laid over the image.
+  Type set directly on a photograph.
 
-  The halo approach failed because the marble and the muted blue text were
-  both pale — adding white light between them only reduced the difference.
-  Contrast has to come from the ink instead: deep indigo at a real weight
-  reads cleanly on pale stone unaided, and a thin gold rule above and below
-  marks the text as a cartouche cut into the scene rather than words floating
-  loose on it. The photograph stays fully visible.
+  Two earlier attempts failed for opposite reasons: a white plate hid the
+  artwork, then heavy dark type sat on top of it like a label. What was
+  actually wrong the second time was the typeface — the parentage was set in
+  Jost, a geometric sans, and no weight or colour makes a UI sans belong on
+  Mughal marble.
+
+  Everything in this scene is now the display serif at moderate weight, in a
+  slate drawn from the blue already present in the stone. It reads as part of
+  the image rather than stamped onto it, and nothing is laid over the picture.
 */
 .on-photo {
-  padding: clamp(1.1rem, 4vw, 1.6rem) clamp(1rem, 5vw, 1.5rem);
-  border-block: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  padding: clamp(1rem, 4vw, 1.5rem) clamp(1rem, 5vw, 1.5rem);
 }
 
 .on-photo p,
 .on-photo span {
-  /* a tight halo for edge definition only — not a wash */
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.75);
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.7);
 }
 
-/*
-  Names over the photograph. The page sets its display type at weight 300,
-  which is right on white paper and wrong on marble — a high-contrast serif at
-  that weight has hairline strokes that disappear into the stone. Over an image
-  the same face needs real weight behind it.
-*/
+/* Names: the display face, present but not forced. */
 .on-photo-name {
-  font-weight: 600;
-  color: var(--color-indigo);
-  text-shadow:
-    0 1px 3px rgba(255, 255, 255, 0.9),
-    0 0 16px rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  color: #1d3d59;
 }
 
 .on-photo-urdu {
-  font-weight: 600;
-  color: var(--color-indigo);
+  font-weight: 400;
+  color: #2b5474;
 }
 
-/* Supporting lines: indigo, not the page's soft grey, and a touch heavier. */
+/* Parentage: the same serif, quieter, with room to breathe. */
 .on-photo-line {
-  font-size: 1.08rem;
-  line-height: 1.65;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 4.4vw, 1.35rem);
+  line-height: 1.75;
   font-weight: 500;
-  color: var(--color-indigo);
+  letter-spacing: 0.012em;
+  color: #2b4a66;
   text-wrap: balance;
 }
 

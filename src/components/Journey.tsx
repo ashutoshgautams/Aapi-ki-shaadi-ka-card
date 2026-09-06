@@ -94,7 +94,7 @@ export function Journey() {
         )}
 
         <div className="pointer-events-none absolute inset-x-0 top-[13svh] flex justify-center px-6">
-          <motion.div style={{ opacity: brideCard }} className="absolute w-full max-w-[22rem]">
+          <motion.div style={{ opacity: brideCard }} className="absolute w-full max-w-[20rem]">
             <Card
               eyebrow={t("theBride")}
               name={lang === "ur" ? couple.bride.urdu : `${couple.bride.honorific} ${couple.bride.name}`}
@@ -103,7 +103,7 @@ export function Journey() {
             />
           </motion.div>
 
-          <motion.div style={{ opacity: groomCard }} className="absolute w-full max-w-[22rem]">
+          <motion.div style={{ opacity: groomCard }} className="absolute w-full max-w-[20rem]">
             <Card
               eyebrow={t("theGroom")}
               name={lang === "ur" ? couple.groom.urdu : `${couple.groom.honorific} ${couple.groom.name}`}
@@ -112,7 +112,7 @@ export function Journey() {
             />
           </motion.div>
 
-          <motion.div style={{ opacity: meetCard }} className="absolute w-full max-w-[22rem]">
+          <motion.div style={{ opacity: meetCard }} className="absolute w-full max-w-[20rem]">
             <div className="on-photo text-center">
             <p className="eyebrow">{t("andSo")}</p>
             <p className="font-display on-photo-name mt-4 text-[clamp(1.9rem,7.4vw,2.9rem)] leading-tight">
@@ -144,7 +144,7 @@ function Card({
         {name}
       </p>
       {urdu && <p className="font-urdu on-photo-urdu mt-1 text-xl">{urdu}</p>}
-      <span className="hairline mx-auto my-4 block w-20" />
+      <span className="hairline mx-auto my-4 block w-16 opacity-80" />
       {lines.filter(Boolean).map((l) => (
         <p key={l} className="on-photo-line">
           {l}
