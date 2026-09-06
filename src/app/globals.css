@@ -142,22 +142,33 @@ body[data-sealed="true"] {
 }
 
 /*
-  Type set directly on a photograph. No panel and no blur — those hid the
-  artwork they sat on. Legibility comes from a soft white halo around the
-  glyphs instead, which lifts them off a busy background while leaving the
-  image completely visible.
+  Type set directly on a photograph, with nothing laid over the image.
+
+  The halo approach failed because the marble and the muted blue text were
+  both pale — adding white light between them only reduced the difference.
+  Contrast has to come from the ink instead: deep indigo at a real weight
+  reads cleanly on pale stone unaided, and a thin gold rule above and below
+  marks the text as a cartouche cut into the scene rather than words floating
+  loose on it. The photograph stays fully visible.
 */
 .on-photo {
-  padding: clamp(1.25rem, 5vw, 2rem) clamp(1rem, 5vw, 1.75rem);
+  padding: clamp(1.1rem, 4vw, 1.6rem) clamp(1rem, 5vw, 1.5rem);
+  border-block: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
 }
 
 .on-photo p,
 .on-photo span {
-  text-shadow:
-    0 1px 2px rgba(255, 255, 255, 0.98),
-    0 0 14px rgba(255, 255, 255, 0.95),
-    0 0 34px rgba(255, 255, 255, 0.85),
-    0 0 60px rgba(255, 255, 255, 0.6);
+  /* a tight halo for edge definition only — not a wash */
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.75);
+}
+
+/* Supporting lines: indigo, not the page's soft grey, and a touch heavier. */
+.on-photo-line {
+  font-size: 1.08rem;
+  line-height: 1.65;
+  font-weight: 500;
+  color: var(--color-indigo);
+  text-wrap: balance;
 }
 
 /* A small gold lozenge that punctuates the space between sections. */
