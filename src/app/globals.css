@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
+/*
+  This invitation commits to a single visual world — daylight on white marble,
+  the way the physical card is printed. It never follows the viewer's dark
+  theme, so every colour is painted explicitly from the tokens below.
+*/
+@theme {
+  --color-marble: #fbfdfe;
+  --color-paper: #ffffff;
+  --color-mist: #eaf3fa;
+  --color-sky-1: #dbeaf6;
+  --color-sky-2: #b9d7ec;
+  --color-sky-3: #8ebcdd;
+  --color-azure: #6ba5d2;
+  --color-azure-deep: #2f6389;
+  --color-indigo: #14304a;
+  --color-ink: #17293c;
+  --color-ink-soft: #5b7690;
+  --color-gold: #b08d4c;
+  --color-gold-lite: #dcc188;
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-jost), "Jost", system-ui, sans-serif;
+  --font-arabic: var(--font-amiri), "Amiri", serif;
+  --font-urdu: var(--font-nastaliq), "Noto Nastaliq Urdu", serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-marble);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-marble);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-sky-2);
+  color: var(--color-indigo);
+}
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-azure-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Locks the page while the curtain is still closed. */
+body[data-sealed="true"] {
+  overflow: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-arabic {
+  font-family: var(--font-arabic);
+  direction: rtl;
+}
+.font-urdu {
+  font-family: var(--font-urdu);
+  direction: rtl;
+  line-height: 2.6;
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Fine gold hairline used to separate acts. */
+.hairline {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-gold) 55%, transparent),
+    transparent
+  );
+  height: 1px;
+}
+
+/* Paper grain — keeps the large white fields from looking like flat CSS. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
