@@ -70,6 +70,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-theme="light"
       className={`${cormorant.variable} ${jost.variable} ${amiri.variable} ${nastaliq.variable}`}
     >
+      <head>
+        {/* The hero sits behind the doors and must be decoded before they
+            finish swinging, or the reveal shows an empty ground first. */}
+        <link rel="preload" as="image" href="/images/hero.jpg" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/doors.jpg" fetchPriority="high" />
+      </head>
       <body>{children}</body>
     </html>
   );

@@ -33,7 +33,12 @@ export function Overture() {
         <motion.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0">
           {hasHero ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={assets.hero} alt="" className="h-full w-full object-cover" />
+            <img
+              src={assets.hero}
+              alt=""
+              fetchPriority="high"
+              className="h-full w-full object-cover"
+            />
           ) : (
             <div
               className="h-full w-full"

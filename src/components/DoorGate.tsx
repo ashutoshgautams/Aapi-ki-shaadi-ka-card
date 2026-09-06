@@ -34,7 +34,7 @@ export function DoorGate({ onOpen }: { onOpen: () => void }) {
     if (open) return;
     setOpen(true);
     onOpen();
-    window.setTimeout(() => setGone(true), reduced ? 100 : 2400);
+    window.setTimeout(() => setGone(true), reduced ? 100 : 1500);
   }
 
   const ease = [0.66, 0, 0.2, 1] as const;
@@ -43,9 +43,9 @@ export function DoorGate({ onOpen }: { onOpen: () => void }) {
     <AnimatePresence>
       {!gone && (
         <motion.div
-          className="fixed inset-0 z-50 overflow-hidden bg-[#0E2438]"
+          className="fixed inset-0 z-50 overflow-hidden bg-[color:var(--color-mist)]"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
           style={{ perspective: "1700px", perspectiveOrigin: "50% 46%" }}
         >
           {(["left", "right"] as const).map((side) => (
@@ -60,7 +60,7 @@ export function DoorGate({ onOpen }: { onOpen: () => void }) {
               }}
               initial={{ rotateY: 0 }}
               animate={open ? { rotateY: side === "left" ? -105 : 105 } : { rotateY: 0 }}
-              transition={{ duration: reduced ? 0.1 : 2.2, ease }}
+              transition={{ duration: reduced ? 0.1 : 1.5, ease }}
             >
               <div className="absolute top-0 h-full w-[200%]" style={{ [side]: 0 }}>
                 {hasDoors ? (
@@ -88,7 +88,7 @@ export function DoorGate({ onOpen }: { onOpen: () => void }) {
                 }}
                 initial={{ opacity: 0.1 }}
                 animate={{ opacity: open ? 0.78 : 0.1 }}
-                transition={{ duration: reduced ? 0.1 : 2.2, ease }}
+                transition={{ duration: reduced ? 0.1 : 1.5, ease }}
               />
             </motion.div>
           ))}
@@ -102,7 +102,7 @@ export function DoorGate({ onOpen }: { onOpen: () => void }) {
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: open ? 1 : 0 }}
-            transition={{ duration: reduced ? 0.1 : 1.6, ease: "easeOut" }}
+            transition={{ duration: reduced ? 0.1 : 1.1, ease: "easeOut" }}
           />
 
           <motion.div

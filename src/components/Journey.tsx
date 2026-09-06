@@ -42,7 +42,7 @@ export function Journey() {
         <motion.div style={{ scale: corridorScale }} className="absolute inset-0">
           {hasCorridor ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={assets.corridor} alt="" className="h-full w-full object-cover" />
+            <img src={assets.corridor} alt="" loading="lazy" className="h-full w-full object-cover" />
           ) : (
             <div
               className="h-full w-full"
@@ -72,6 +72,7 @@ export function Journey() {
             <img
               src={assets.bride}
               alt=""
+              loading="lazy"
               className="h-full w-full object-contain object-bottom drop-shadow-[0_24px_36px_rgba(20,48,74,.22)]"
             />
           </motion.div>
@@ -86,6 +87,7 @@ export function Journey() {
             <img
               src={assets.groom}
               alt=""
+              loading="lazy"
               className="h-full w-full object-contain object-bottom drop-shadow-[0_24px_36px_rgba(20,48,74,.22)]"
             />
           </motion.div>
